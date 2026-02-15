@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block start %}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        min-height: 100vh;
+    }
+
+    .update-card {
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+        transition: 0.3s ease;
+    }
+
+    .update-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        transition: 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 12px rgba(102,126,234,0.3);
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .btn-update {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        border-radius: 12px;
+        padding: 12px;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+
+    .btn-update:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .current-image {
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: 0.3s ease;
+    }
+
+    .current-image:hover {
+        transform: scale(1.05);
+    }
+
+    .section-divider {
+        border-top: 2px solid #eee;
+        margin: 20px 0;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+
+    <form class="col-md-6 update-card p-5" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h2 class="text-center fw-bold mb-4">✏️ Update Your Recipe</h2>
+        <hr class="section-divider">
+
+        <!-- Recipe Name -->
+        <div class="mb-4">
+            <label class="form-label">Recipe Name</label>
+            <input name="receipe_name"
+                   value="{{receipe.receipe_name}}"
+                   required
+                   type="text"
+                   class="form-control"
+                   placeholder="Enter recipe name">
+        </div>
+
+        <!-- Recipe Description -->
+        <div class="mb-4">
+            <label class="form-label">Recipe Description</label>
+            <textarea name="receipe_description"
+                      class="form-control"
+                      rows="4"
+                      required
+                      placeholder="Describe your recipe...">{{receipe.receipe_description}}</textarea>
+        </div>
+
+        <!-- Current Image Preview -->
+        {% if receipe.receipe_image %}
+        <div class="mb-4 text-center">
+            <label class="form-label d-block">Current Image</label>
+            <img src="/media/recipe_1/{{receipe.receipe_image}}"
+                 height="160"
+                 class="current-image">
+        </div>
+        {% endif %}
+
+        <!-- Upload New Image -->
+        <div class="mb-4">
+            <label class="form-label">Change Recipe Image</label>
+            <input name="receipe_image" type="file" class="form-control">
+        </div>
+
+        <!-- Update Button -->
+        <button type="submit" class="btn btn-update w-100 text-white">
+            🔄 Update Recipe
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

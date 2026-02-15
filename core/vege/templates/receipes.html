@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block start %}
+
+<style>
+    body {
+        background: #f4f6fb;
+    }
+
+    .page-header {
+        font-weight: 700;
+        color: #333;
+    }
+
+    .search-card {
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        background: white;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 10px;
+    }
+
+    .btn-modern {
+        border-radius: 12px;
+        padding: 8px 18px;
+        font-weight: 600;
+    }
+
+    .recipe-table {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+
+    .recipe-table img {
+        border-radius: 12px;
+        object-fit: cover;
+        transition: 0.3s ease;
+    }
+
+    .recipe-table img:hover {
+        transform: scale(1.05);
+    }
+
+    .action-btn {
+        border-radius: 10px;
+        padding: 6px 12px;
+    }
+
+    .table thead {
+        background: #667eea;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f2f4ff;
+    }
+</style>
+
+<div class="container mt-5">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="page-header">🍽️ My Recipes</h2>
+        <span class="text-muted">Welcome, {{request.user}} 👩🏻‍💻</span>
+    </div>
+
+    <!-- Search Card -->
+    <div class="search-card p-4 mb-5 col-md-6 mx-auto">
+        <form>
+            <label class="form-label fw-semibold">Search Food 🔎</label>
+            <div class="d-flex gap-2">
+                <input name="search" type="text" class="form-control" placeholder="Search your recipe...">
+                <button type="submit" class="btn btn-primary btn-modern">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Recipe Table -->
+    <div class="recipe-table p-3">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Recipe Name</th>
+                    <th>Description ✍🏻</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for receipe in receipes %}
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <td class="fw-semibold">{{receipe.receipe_name}}</td>
+                    <td style="max-width: 400px;">
+                        {{receipe.receipe_description|truncatewords:25}}
+                    </td>
+                    <td>
+                        <img src="/media/recipe_1/{{receipe.receipe_image}}" height="120">
+                    </td>
+                    <td>
+                        <a href="/delete-receipe/{{receipe.id}}/"
+                           class="btn btn-outline-danger action-btn">🗑️</a>
+
+                        <a href="/update-receipe/{{receipe.id}}/"
+                           class="btn btn-outline-success action-btn">✏️</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

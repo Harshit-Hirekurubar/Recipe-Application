@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font (Modern Look) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f6fb;
+            margin: 0;
+        }
+
+        /* Modern Navbar */
+        .custom-navbar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 12px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 20px;
+            color: white !important;
+        }
+
+        .nav-btn {
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-light {
+            background: white;
+            border: none;
+        }
+
+        .btn-danger {
+            border-radius: 12px;
+        }
+
+        .btn-dark {
+            border-radius: 12px;
+        }
+
+        .page-content {
+            padding: 40px 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Modern Navbar -->
+    <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+        <div class="container">
+
+            {% if request.user.is_authenticated %}
+            <a href="/receipes/" class="btn btn-dark nav-btn me-3">◀ Back</a>
+            {% endif %}
+
+            <a class="navbar-brand mx-auto">🍽️ Your Recipe Notebook</a>
+
+            <div class="d-flex">
+                {% if request.user.is_authenticated %}
+                    <a href="/add-receipe/" class="btn btn-light nav-btn me-2">➕ Add Recipe</a>
+                    <a href="/logout/" class="btn btn-danger nav-btn">Logout</a>
+                {% else %}
+                    <a href="/login/" class="btn btn-light nav-btn">Login</a>
+                {% endif %}
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="page-content">
+        {% block start %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        © 2026 Recipe Web • Built By ❤️ HHH
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

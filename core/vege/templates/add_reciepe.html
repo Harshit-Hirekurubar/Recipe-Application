@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% block start %}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #fad0c4 100%);
+        min-height: 100vh;
+    }
+
+    .page-wrapper {
+        max-width: 850px;
+        margin: 80px auto;
+    }
+
+    .form-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 45px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        background: linear-gradient(90deg, #ff416c, #ff4b2b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+        color: #6c757d;
+        margin-bottom: 40px;
+        font-size: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        border: 1px solid #e3e6ea;
+        padding: 12px 15px;
+        transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+        border-color: #ff4b2b;
+        box-shadow: 0 0 0 3px rgba(255,75,43,0.15);
+    }
+
+    .upload-box {
+        border: 2px dashed #ff7e5f;
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        transition: 0.3s ease;
+        cursor: pointer;
+        background: rgba(255, 126, 95, 0.05);
+    }
+
+    .upload-box:hover {
+        background: rgba(255, 126, 95, 0.12);
+        border-color: #ff4b2b;
+    }
+
+    .upload-box input {
+        display: none;
+    }
+
+    .upload-text {
+        color: #ff4b2b;
+        font-weight: 500;
+    }
+
+    .btn-save {
+        background: linear-gradient(90deg, #ff416c, #ff4b2b);
+        border: none;
+        color: white;
+        padding: 12px 28px;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.25s ease;
+    }
+
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255,75,43,0.3);
+    }
+
+    .form-footer {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+</style>
+
+<div class="page-wrapper">
+
+    <div class="form-card">
+
+        <div class="title">Create a New Recipe 🍽️</div>
+        <div class="subtitle">
+            Share your delicious creation with the world.
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label class="form-label">Recipe Name</label>
+                <input type="text"
+                       name="receipe_name"
+                       class="form-control"
+                       placeholder="Spicy Paneer Tikka"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea name="receipe_description"
+                          class="form-control"
+                          rows="5"
+                          placeholder="Tell us about the recipe..."
+                          required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Recipe Image</label>
+                <label class="upload-box">
+                    <input type="file" name="receipe_image">
+                    <div class="upload-text">
+                        Click to upload or drag & drop
+                    </div>
+                    <small class="text-muted">PNG or JPG recommended</small>
+                </label>
+            </div>
+
+            <div class="form-footer">
+                <small class="text-muted">
+                    Your recipe will appear in your dashboard.
+                </small>
+
+                <button type="submit" class="btn-save">
+                    Publish Recipe
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
